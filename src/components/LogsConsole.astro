@@ -1,0 +1,197 @@
+---
+---
+
+<div class="w-full max-w-[860px] bg-canvas-card border border-hairline rounded-sm overflow-hidden font-mono text-[13px] text-zinc-300 text-left" data-gsap-fade>
+  <!-- Window Header -->
+  <div class="bg-canvas-soft px-4 py-3 flex items-center justify-between border-b border-hairline select-none">
+    <div class="flex items-center space-x-2">
+      <span class="w-3 h-3 rounded-full bg-[#ff5f56]"></span>
+      <span class="w-3 h-3 rounded-full bg-[#ffbd2e]"></span>
+      <span class="w-3 h-3 rounded-full bg-[#27c93f]"></span>
+      <span class="text-[11px] text-body-mid font-sans pl-2 select-none">aryan@production:~</span>
+    </div>
+    <div class="flex items-center space-x-1.5 text-body-mid text-[11px]">
+      <span class="px-1.5 py-0.5 bg-canvas-mid rounded text-zinc-400 select-none">ESC</span>
+      <span class="select-none">to exit terminal</span>
+    </div>
+  </div>
+
+  <!-- IDE Tabs -->
+  <div class="bg-canvas-mid flex border-b border-hairline text-[12px] overflow-x-auto no-scrollbar">
+    <button class="tab-btn px-4 py-2 bg-canvas-card text-white border-r border-hairline flex items-center gap-2 font-sans select-none focus:outline-none" data-tab="pm2">
+      <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+      pm2 logs (kangagigs)
+    </button>
+    <button class="tab-btn px-4 py-2 text-zinc-500 hover:text-zinc-300 border-r border-hairline flex items-center gap-2 font-sans select-none focus:outline-none" data-tab="nginx">
+      <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+      nginx.conf
+    </button>
+    <button class="tab-btn px-4 py-2 text-zinc-500 hover:text-zinc-300 border-r border-hairline flex items-center gap-2 font-sans select-none focus:outline-none" data-tab="workers">
+      <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+      cloudflare workers
+    </button>
+  </div>
+
+  <!-- Terminal Body -->
+  <div class="p-4 min-h-[360px] max-h-[460px] overflow-y-auto" id="terminal-content">
+
+    <!-- PM2 Tab Content -->
+    <div id="tab-content-pm2" class="tab-pane space-y-1">
+      <div class="text-zinc-500"># pm2 show kangagigs-api</div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-canvas-soft/60 p-3 rounded-sm border border-hairline mb-4 font-sans text-xs">
+        <div><span class="text-zinc-500">status:</span> <span class="text-emerald-400">online</span></div>
+        <div><span class="text-zinc-500">restarts:</span> <span class="text-zinc-300">2</span></div>
+        <div><span class="text-zinc-500">uptime:</span> <span class="text-zinc-300">42d 12h</span></div>
+        <div><span class="text-zinc-500">memory:</span> <span class="text-zinc-300">84.2 MB / 512 MB</span></div>
+      </div>
+      <div class="text-zinc-500"># pm2 logs --lines 10</div>
+      <div class="text-zinc-400">[PM2] Streaming logs for all processes...</div>
+      <div class="text-sky-400">[kangagigs-api:0] Running on port 8080 with cluster mode (2 instances)</div>
+      <div class="text-emerald-400">[kangagigs-api:0] DB connection pool established (pool size: 10)</div>
+      <div class="text-amber-400">[kangagigs-api:0] Redis connection active at redis://127.0.0.1:6379</div>
+      <div class="text-zinc-500">[2026-06-22 20:20:01] GET /api/v1/jobs - 200 OK - 18.5ms (Redis HIT)</div>
+      <div class="text-zinc-500">[2026-06-22 20:20:12] POST /api/v1/applications - 201 Created - 142ms (SQL INSERT)</div>
+      <div class="text-zinc-500">[2026-06-22 20:20:18] GET /api/v1/users/profile - 200 OK - 8.2ms (Redis HIT)</div>
+      <div id="live-pm2-logs"></div>
+    </div>
+
+    <!-- NGINX Tab Content -->
+    <div id="tab-content-nginx" class="tab-pane hidden space-y-1.5 text-zinc-400">
+      <div class="text-zinc-500"># cat /etc/nginx/sites-available/kangagigs</div>
+      <div class="text-zinc-300">upstream backend_hosts &#123;</div>
+      <div class="pl-4">server 127.0.0.1:8080;</div>
+      <div class="pl-4">server 127.0.0.1:8081;</div>
+      <div class="text-zinc-300">&#125;</div>
+      <div class="text-zinc-300">server &#123;</div>
+      <div class="pl-4">listen 443 ssl http2;</div>
+      <div class="pl-4">server_name api.kangagigs.com;</div>
+      <div class="pl-4 text-zinc-500"># SSL optimization based on Mozilla Modern profile</div>
+      <div class="pl-4">ssl_certificate /etc/letsencrypt/live/api.kangagigs.com/fullchain.pem;</div>
+      <div class="pl-4">ssl_certificate_key /etc/letsencrypt/live/api.kangagigs.com/privkey.pem;</div>
+      <div class="pl-4">ssl_protocols TLSv1.2 TLSv1.3;</div>
+      <div class="pl-4">ssl_prefer_server_ciphers off;</div>
+      <div class="pl-4">ssl_session_cache shared:SSL:10m;</div>
+      <div class="pl-4">ssl_session_timeout 1d;</div>
+      <div class="pl-4">ssl_session_tickets off;</div>
+      <div class="pl-4 text-zinc-500"># Reverse proxy parameters</div>
+      <div class="pl-4">location / &#123;</div>
+      <div class="pl-8">proxy_pass http://backend_hosts;</div>
+      <div class="pl-8">proxy_http_version 1.1;</div>
+      <div class="pl-8">proxy_set_header Upgrade $http_upgrade;</div>
+      <div class="pl-8">proxy_set_header Connection 'upgrade';</div>
+      <div class="pl-8">proxy_set_header Host $host;</div>
+      <div class="pl-8">proxy_cache_bypass $http_upgrade;</div>
+      <div class="pl-8">proxy_set_header X-Real-IP $remote_addr;</div>
+      <div class="pl-8">proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</div>
+      <div class="pl-8">proxy_set_header X-Forwarded-Proto $scheme;</div>
+      <div class="pl-4">&#125;</div>
+      <div class="text-zinc-300">&#125;</div>
+    </div>
+
+    <!-- Cloudflare Workers Tab Content -->
+    <div id="tab-content-workers" class="tab-pane hidden space-y-1">
+      <div class="text-zinc-500"># wrangler deploy --env production</div>
+      <div class="text-zinc-400">⬤ Running npm run build</div>
+      <div class="text-zinc-400">⬤ Building Worker bundle...</div>
+      <div class="text-emerald-400">✓ Built successfully (2.3s)</div>
+      <div class="text-zinc-400">⬤ Deploying to Cloudflare Workers...</div>
+      <div class="text-emerald-400">✓ Published to infra-form-handle.worker.dev</div>
+      <div class="text-zinc-500 mt-2"># cat src/workers/form-handler.ts</div>
+      <div class="text-zinc-400">export default &#123;</div>
+      <div class="text-zinc-400">  async fetch(request: Request, env: Env): Promise&lt;Response&gt; &#123;</div>
+      <div class="pl-4 text-zinc-500">// CORS headers for production domains</div>
+      <div class="pl-4 text-zinc-300">const corsHeaders = &#123;</div>
+      <div class="pl-8 text-zinc-300">'Access-Control-Allow-Origin': '*',</div>
+      <div class="pl-8 text-zinc-300">'Access-Control-Allow-Methods': 'POST, OPTIONS',</div>
+      <div class="pl-8 text-zinc-300">'Access-Control-Allow-Headers': 'Content-Type',</div>
+      <div class="pl-4 text-zinc-300">&#125;;</div>
+      <div class="pl-4 text-zinc-500">// Rate limit: 5 req/min per IP</div>
+      <div class="pl-4 text-zinc-300">const ip = request.headers.get('CF-Connecting-IP') || 'unknown';</div>
+      <div class="pl-4 text-zinc-300">const key = &#96;rate:&#36;&#123;ip&#125;&#96;;</div>
+      <div class="pl-4 text-zinc-300">const count = await env.KV.get(key, 'json') || 0;</div>
+      <div class="pl-4">...</div>
+      <div class="text-zinc-400">&#125;</div>
+      <div class="text-zinc-500 mt-2"># tail -f wrangler logs</div>
+      <div id="live-workers-logs"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const tabs = document.querySelectorAll('.tab-btn');
+  const panes = document.querySelectorAll('.tab-pane');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.getAttribute('data-tab');
+
+      tabs.forEach(t => {
+        t.classList.remove('bg-canvas-card', 'text-white');
+        t.classList.add('text-zinc-500');
+      });
+      tab.classList.add('bg-canvas-card', 'text-white');
+      tab.classList.remove('text-zinc-500');
+
+      panes.forEach(pane => {
+        pane.classList.add('hidden');
+      });
+      document.getElementById(`tab-content-${target}`)?.classList.remove('hidden');
+    });
+  });
+
+  const livePM2 = document.getElementById('live-pm2-logs');
+  const liveWorkers = document.getElementById('live-workers-logs');
+
+  const routes = ['/api/v1/jobs', '/api/v1/applications', '/api/v1/notifications', '/api/v1/admin/stats'];
+  const methods = ['GET', 'POST', 'GET', 'GET'];
+  const statuses = [200, 201, 200, 200];
+  const responseTimes = ['12.4ms', '154.2ms', '6.8ms', '24.1ms'];
+  const accessModes = ['Redis HIT', 'SQL INSERT', 'Redis HIT', 'SQL SELECT'];
+
+  function pad(num) {
+    return num.toString().padStart(2, '0');
+  }
+
+  function getTimestamp() {
+    const d = new Date();
+    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  }
+
+  setInterval(() => {
+    if (livePM2) {
+      const idx = Math.floor(Math.random() * routes.length);
+      const isPost = methods[idx] === 'POST';
+      const logClass = isPost ? 'text-amber-400' : 'text-zinc-400';
+      const newLog = document.createElement('div');
+      newLog.className = 'text-zinc-500';
+      newLog.innerHTML = `<span class="text-zinc-500">[${getTimestamp()}]</span> <span class="${logClass}">${methods[idx]}</span> ${routes[idx]} - <span class="text-emerald-400">${statuses[idx]}</span> - ${responseTimes[idx]} (${accessModes[idx]})`;
+      livePM2.appendChild(newLog);
+
+      if (livePM2.children.length > 5 && livePM2.firstChild) {
+        livePM2.removeChild(livePM2.firstChild);
+      }
+      const container = document.getElementById('terminal-content');
+      if (container) container.scrollTop = container.scrollHeight;
+    }
+  }, 3500);
+
+  setInterval(() => {
+    if (liveWorkers) {
+      const logs = [
+        `[${getTimestamp()}] POST /api/contact - 200 OK - 4.2ms (KV write)`,
+        `[${getTimestamp()}] POST /api/contact - 200 OK - 3.8ms (KV write)`,
+        `[${getTimestamp()}] OPTIONS /api/contact - 204 No Content - 1.1ms (CORS preflight)`,
+        `[${getTimestamp()}] POST /api/contact - 429 Too Many Requests - rate limited (IP: 203.0.113.x)`,
+      ];
+      const newLog = document.createElement('div');
+      newLog.className = 'text-zinc-400';
+      newLog.textContent = logs[Math.floor(Math.random() * logs.length)];
+      liveWorkers.appendChild(newLog);
+
+      if (liveWorkers.children.length > 5 && liveWorkers.firstChild) {
+        liveWorkers.removeChild(liveWorkers.firstChild);
+      }
+    }
+  }, 4000);
+</script>

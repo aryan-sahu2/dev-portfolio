@@ -1,0 +1,44 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Aryan Sahu — Production Engineer & Product Builder", 
+  description = "Portfolio of Aryan Sahu, showcasing enterprise engineering at Newgen, co-founding Kangagigs startup, and deploying production systems (PM2, Nginx, AWS, Go)." 
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    
+    <!-- Open Graph / SEO -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Aryan Sahu Portfolio" />
+    
+    <!-- Google Fonts: Inter & Space Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Space+Mono&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-canvas text-ink antialiased selection:bg-white selection:text-black">
+    <!-- Three.js 3D Background Canvas -->
+    <canvas id="canvas-3d"></canvas>
+    
+    <slot />
+  </body>
+</html>

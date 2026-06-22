@@ -1,0 +1,81 @@
+---
+interface Metric {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  id?: string;
+  title: string;
+  subtitle?: string;
+  badge?: string;
+  metrics?: Metric[];
+  ctaLink?: string;
+  ctaText?: string;
+  secondaryCtaLink?: string;
+  secondaryCtaText?: string;
+}
+
+const {
+  id,
+  title,
+  subtitle,
+  badge,
+  metrics = [],
+  ctaLink,
+  ctaText,
+  secondaryCtaLink,
+  secondaryCtaText,
+} = Astro.props;
+---
+
+<section id={id} class="w-full bg-canvas border-b border-hairline py-16 md:py-24 px-4 md:px-8 flex flex-col items-center" data-gsap-section>
+  <div class="max-w-[1024px] w-full">
+
+    <!-- Eyebrow Badge -->
+    {badge && (
+      <span class="caption-mono text-body-mid mb-3 block" data-gsap-fade>{badge}</span>
+    )}
+
+    <!-- Title -->
+    <h2 class="display-md text-ink mb-4" data-gsap-fade>{title}</h2>
+
+    <!-- Subtitle -->
+    {subtitle && (
+      <p class="body-lg text-body mb-6" data-gsap-fade>{subtitle}</p>
+    )}
+
+    <!-- Main Content Slot -->
+    <div class="w-full" data-gsap-fade>
+      <slot />
+    </div>
+
+    <!-- Action buttons -->
+    <div class="flex flex-wrap gap-4 mt-8" data-gsap-fade>
+      {ctaLink && ctaText && (
+        <a href={ctaLink} class="inline-flex items-center justify-center bg-white text-black text-sm font-normal rounded-pill px-5 py-2.5 transition-all duration-150 active:scale-95 hover:bg-white/90">
+          {ctaText}
+        </a>
+      )}
+
+      {secondaryCtaLink && secondaryCtaText && (
+        <a href={secondaryCtaLink} class="inline-flex items-center justify-center text-sm font-normal rounded-pill px-5 py-2.5 transition-all duration-150 border border-white/20 text-white hover:bg-white/5 active:scale-95">
+          {secondaryCtaText}
+        </a>
+      )}
+    </div>
+
+    <!-- Metrics -->
+    {metrics.length > 0 && (
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 w-full border-t border-hairline pt-8 mt-8" data-gsap-fade>
+        {metrics.map((metric) => (
+          <div class="flex flex-col">
+            <span class="display-xs text-ink font-normal">{metric.value}</span>
+            <span class="caption-mono-sm text-body-mid mt-1">{metric.label}</span>
+          </div>
+        ))}
+      </div>
+    )}
+
+  </div>
+</section>
