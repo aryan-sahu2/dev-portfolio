@@ -1,0 +1,18 @@
+---
+import LogsConsole from "./LogsConsole.astro"; 
+---
+<section
+  id="logs"
+  class="w-full bg-transparent border-b border-hairline/30 py-16 md:py-24 px-4 md:px-8 flex flex-col items-center"
+>
+  <div class="max-w-[1024px] w-full flex flex-col items-center text-center">
+    <span class="caption-mono text-body-mid mb-3">DIAGNOSTICS TERMINAL</span>
+    <h2 class="display-md text-ink mb-4">Production Diagnostics Console</h2>
+    <p class="body-lg text-body max-w-[640px] mb-10">
+      Inspect live PM2 logs, Nginx configurations, and Cloudflare Workers for my
+      production deployments.
+    </p>
+    <LogsConsole />
+  </div>
+</section>
+
