@@ -53,13 +53,13 @@ const {
     <!-- Action buttons -->
     <div class="flex flex-wrap gap-4 mt-8" data-gsap-fade>
       {ctaLink && ctaText && (
-        <a href={ctaLink} class="inline-flex items-center justify-center bg-white text-black text-sm font-normal rounded-pill px-5 py-2.5 transition-all duration-150 active:scale-95 hover:bg-white/90">
+        <a href={ctaLink} data-magnet class="inline-flex items-center justify-center bg-white text-black text-sm font-normal rounded-pill px-5 py-2.5 transition-all duration-150 active:scale-95 hover:bg-white/90">
           {ctaText}
         </a>
       )}
 
       {secondaryCtaLink && secondaryCtaText && (
-        <a href={secondaryCtaLink} class="inline-flex items-center justify-center text-sm font-normal rounded-pill px-5 py-2.5 transition-all duration-150 border border-white/20 text-white hover:bg-white/5 active:scale-95">
+        <a href={secondaryCtaLink} data-magnet class="inline-flex items-center justify-center text-sm font-normal rounded-pill px-5 py-2.5 transition-all duration-150 border border-white/20 text-white hover:bg-white/90 hover:text-black active:scale-95">
           {secondaryCtaText}
         </a>
       )}
