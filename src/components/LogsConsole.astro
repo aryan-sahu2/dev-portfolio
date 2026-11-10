@@ -146,7 +146,7 @@
   const responseTimes = ['12.4ms', '154.2ms', '6.8ms', '24.1ms'];
   const accessModes = ['Redis HIT', 'SQL INSERT', 'Redis HIT', 'SQL SELECT'];
 
-  function pad(num) {
+  function pad(num: number) {
     return num.toString().padStart(2, '0');
   }
 

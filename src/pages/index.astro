@@ -3,180 +3,35 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Hero from '../components/Hero.astro';
+import LoreSection from '../components/LoreSection.astro';
+import SectionHeader from '../components/SectionHeader.astro';
 import ProjectTile from '../components/ProjectTile.astro';
-import ProjectsHeader from '../components/ProjectsHeader.astro';
 import DiagnosticsSection from '../components/DiagnosticsSection.astro';
 import PhilosophySection from '../components/PhilosophySection.astro';
 import ContactSection from '../components/ContactSection.astro';
+import { experience, projects } from '../data';
 ---
 
 <Layout>
   <Header />
   <Hero />
+  <LoreSection />
 
-  <ProjectTile
+  <SectionHeader
     id="experience"
-    title="Infravue Technologies"
-    subtitle="Full Stack Developer · July 2025 - Present"
-    badge="CURRENT"
-  >
-    <div class="text-body space-y-4 text-[15px] leading-relaxed">
-      <p>
-        I architect and deploy production Next.js, Node.js, and Python backend applications
-        for a Dubai-based tech startup. My work spans frontend, API design, infrastructure
-        configuration, and deployment pipelines.
-      </p>
-      <ul class="space-y-2 text-body-mid">
-        <li class="flex items-start gap-2">
-          <span class="text-emerald-500 mt-1.5 flex-shrink-0">▹</span>
-          <span>Architected and deployed production Next.js, Node.js and Python backend applications with PM2/Nginx across multiple subdomains, achieving zero-downtime deployments</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-emerald-500 mt-1.5 flex-shrink-0">▹</span>
-          <span>Built Cloudflare Workers backend for serverless form processing, maintaining legacy infrastructure in parallel without service disruption</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-emerald-500 mt-1.5 flex-shrink-0">▹</span>
-          <span>Migrated legacy HTML/CSS/Three.js codebase to Next.js, reducing maintenance overhead by 40% while enhancing 3D animation performance</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-emerald-500 mt-1.5 flex-shrink-0">▹</span>
-          <span>Configured PM2 automated health checks and service restarts, improving system reliability during infrastructure failures</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-emerald-500 mt-1.5 flex-shrink-0">▹</span>
-          <span>Integrated CI/CD pipelines with automated tar-based backup prior to SCP deployment of build artifacts, enabling safe rollbacks</span>
-        </li>
-      </ul>
-    </div>
-  </ProjectTile>
+    eyebrow="EXPERIENCE"
+    title="Where I've shipped"
+    text="From enterprise banking systems to being a startup's first engineer."
+  />
+  {experience.map((entry) => <ProjectTile {...entry} />)}
 
-  <ProjectTile
-    title="Kangagigs"
-    subtitle="Full Stack Developer (Co-founder) · March 2025 – July 2025"
-    badge="STARTUP"
-    metrics={[
-      { value: "500+", label: "Registered Users" },
-      { value: "35%", label: "Load Time Reduction" },
-      { value: "99.9%", label: "Uptime" },
-      { value: "3", label: "UI/UX Iterations" }
-    ]}
-    ctaLink="https://github.com/aryan-sahu2"
-    ctaText="View on GitHub"
-  >
-    <div class="text-body space-y-4 text-[15px] leading-relaxed">
-      <p>
-        Co-founded a full-stack job discovery platform. I owned everything from the React
-        frontend and Node.js API to the PostgreSQL schema, AWS EC2 provisioning, Nginx
-        reverse proxy configuration, and PM2 process management.
-      </p>
-      <ul class="space-y-2 text-body-mid">
-        <li class="flex items-start gap-2">
-          <span class="text-emerald-500 mt-1.5 flex-shrink-0">▹</span>
-          <span>Architected and shipped a full-stack job discovery platform (React, Node.js, PostgreSQL, Prisma) with JWT-secured REST APIs, independently deployed on AWS EC2</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-emerald-500 mt-1.5 flex-shrink-0">▹</span>
-          <span>Scaled to 500+ registered users; led 3 UI/UX iterations reducing page load time by 35%</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-emerald-500 mt-1.5 flex-shrink-0">▹</span>
-          <span>Owned full production infrastructure: Nginx reverse proxy configuration, PM2 process management, and AWS EC2 provisioning</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-emerald-500 mt-1.5 flex-shrink-0">▹</span>
-          <span>Built employer and candidate flows end-to-end: job posting, search/filtering, resume uploads, and authentication — without external engineering support</span>
-        </li>
-      </ul>
-    </div>
-  </ProjectTile>
-
-  <ProjectTile
-    title="Newgen Software Technologies"
-    subtitle="Application Engineer · February 2023 – March 2025"
-    badge="ENTERPRISE"
-    metrics={[
-      { value: "10M+", label: "Daily Transactions" },
-      { value: "99.99%", label: "Data Accuracy" },
-      { value: "30%", label: "Query Time Reduction" },
-      { value: "Oracle→SAP", label: "Integration Pipeline" }
-    ]}
-  >
-    <div class="text-body space-y-4 text-[15px] leading-relaxed">
-      <p>
-        At Newgen, I delivered production features for enterprise clients including
-        Vodafone India and Bank of Maharashtra, working with Java and JavaScript systems
-        that processed over 10 million banking transactions daily.
-      </p>
-      <ul class="space-y-2 text-body-mid">
-        <li class="flex items-start gap-2">
-          <span class="text-emerald-500 mt-1.5 flex-shrink-0">▹</span>
-          <span>Delivered production features for enterprise clients (Vodafone India, Bank of Maharashtra) in Java and JavaScript, supporting systems processing 10M+ daily banking transactions</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-emerald-500 mt-1.5 flex-shrink-0">▹</span>
-          <span>Engineered Oracle-to-SAP data integration pipelines with 99.9% data accuracy across critical financial business processes</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-emerald-500 mt-1.5 flex-shrink-0">▹</span>
-          <span>Reduced batch query processing time by 30% through query restructuring, indexing strategy, and execution plan analysis</span>
-        </li>
-      </ul>
-    </div>
-  </ProjectTile>
-
-  <ProjectsHeader />
-
-  <ProjectTile
-    title="ICCS – Business Management Platform"
-    subtitle="Next.js, NestJS, PostgreSQL · January 2025 – Present"
-  >
-    <div class="text-body space-y-4 text-[15px] leading-relaxed">
-      <p>
-        Production-grade internal platform for an IT services business. Covers service
-        ticket tracking, customer invoicing, inventory management, rentals, and AMC
-        contract management.
-      </p>
-      <ul class="space-y-2 text-body-mid">
-        <li class="flex items-start gap-2">
-          <span class="text-blue-400 mt-1.5 flex-shrink-0">▹</span>
-          <span>Designing and building a full-stack business management system covering service ticket tracking, customer invoicing, inventory management, rentals, and AMC contracts</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-blue-400 mt-1.5 flex-shrink-0">▹</span>
-          <span>Architected a 16-table PostgreSQL schema with full referential integrity, audit logging, and transactional safety across linked billing and inventory modules</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-blue-400 mt-1.5 flex-shrink-0">▹</span>
-          <span>Stack: Next.js, NestJS, PostgreSQL, TypeScript — built for real daily use by a small operations team</span>
-        </li>
-      </ul>
-    </div>
-  </ProjectTile>
-
-  <ProjectTile
-    title="Agency Site Recreations (ExoApe, Refokus, Obys)"
-    subtitle="React, GSAP, Framer Motion, ScrollTrigger · January 2024 – December 2024"
-    ctaLink="https://github.com/aryan-sahu2"
-    ctaText="View on GitHub"
-  >
-    <div class="text-body space-y-4 text-[15px] leading-relaxed">
-      <p>
-        Pixel-perfect recreations of award-winning agency websites, built to demonstrate
-        mastery of scroll-driven animation choreography and complex layout reproduction.
-      </p>
-      <ul class="space-y-2 text-body-mid">
-        <li class="flex items-start gap-2">
-          <span class="text-blue-400 mt-1.5 flex-shrink-0">▹</span>
-          <span>Recreated award-winning agency websites pixel-perfectly using React, GSAP, Framer Motion, and ScrollTrigger</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-blue-400 mt-1.5 flex-shrink-0">▹</span>
-          <span>Focused on scroll-driven animation choreography, smooth page transitions, and precise layout reproduction at high fidelity</span>
-        </li>
-      </ul>
-    </div>
-  </ProjectTile>
+  <SectionHeader
+    id="projects"
+    eyebrow="SIDE PROJECTS"
+    title="Built outside the day job"
+    text="Smaller things I build to solve a real problem, or to learn something properly."
+  />
+  {projects.map((entry) => <ProjectTile {...entry} />)}
 
   <DiagnosticsSection />
   <PhilosophySection />

@@ -1,0 +1,47 @@
+---
+import { lore } from '../data';
+---
+
+<section id="lore" class="w-full bg-transparent border-b border-hairline/30 py-16 md:py-24 px-4 md:px-8 flex flex-col items-center scroll-mt-10">
+  <div class="max-w-[1024px] w-full">
+    <span class="caption-mono text-body-mid mb-3 block">DEV LORE</span>
+    <h2 class="display-md text-ink mb-4">Things I shipped, and what it took.</h2>
+    <p class="body-lg text-body max-w-[640px] mb-12">
+      Short write-ups of work that's out in the world: what the situation was, what I did,
+      and how it ended up.
+    </p>
+
+    <ol class="border-t border-hairline">
+      {lore.map((entry, i) => (
+        <li class="grid md:grid-cols-[200px_1fr] gap-3 md:gap-8 py-10 border-b border-hairline" data-gsap-section>
+          <span class="caption-mono-sm text-body-mid md:pt-2">
+            {String(i + 1).padStart(3, '0')} · {entry.tag}
+          </span>
+          <div data-gsap-fade>
+            <h3 class="display-sm text-ink mb-4">{entry.title}</h3>
+            <div class="space-y-3 body-md max-w-[640px]">
+              {entry.story.map((p) => <p>{p}</p>)}
+            </div>
+            <p class="text-ink text-lg leading-snug mt-5">
+              <span class="text-body-mid" aria-hidden="true">→ </span>{entry.outcome}
+            </p>
+            {entry.stack && (
+              <p class="caption-mono-sm text-body-mid mt-4">{entry.stack.join(' · ')}</p>
+            )}
+            {entry.link && (
+              <a
+                href={entry.link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-magnet
+                class="inline-flex items-center justify-center mt-6 text-sm font-normal rounded-pill px-5 py-2.5 transition-all duration-150 border border-white/20 text-white hover:bg-white/90 hover:text-black active:scale-95"
+              >
+                {entry.link.text} ↗
+              </a>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

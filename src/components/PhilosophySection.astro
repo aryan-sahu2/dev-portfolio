@@ -3,32 +3,28 @@
   class="w-full bg-transparent border-b border-hairline/30 py-16 md:py-24 px-4 md:px-8 flex flex-col items-center scroll-mt-10"
 >
   <div class="max-w-[760px] w-full">
-    <span class="caption-mono text-body-mid mb-3 block">WRITING & THINKING</span
-    >
-    <h2 class="display-md text-ink mb-8">My Engineering Philosophy</h2>
+    <span class="caption-mono text-body-mid mb-3 block">HOW I WORK</span>
+    <h2 class="display-md text-ink mb-8">
+      I build it.<br />
+      <span class="text-white/60">I ship it.</span><br />
+      I keep it running.
+    </h2>
     <div class="space-y-5 body-lg text-body">
       <p>
         Most of my experience comes from building things, deploying them,
         breaking them, and then figuring out why they broke.
       </p>
       <p>
-        I spent four hours debugging deployment issues because the alternative
-        was shipping something unreliable. I am a developer first, not a content
-        creator. I believe in concrete evidence over corporate buzzwords, and
-        working code over generic certificates.
-      </p>
-      <p>
-        I understand that infrastructure is not separate from writing code. A
-        beautiful frontend is useless if the server process crashes under the
-        first load spike, the Nginx configuration throws <code
+        I don't treat infrastructure as someone else's job. A good frontend is
+        useless if the process dies on the first traffic spike, Nginx starts
+        returning <code
           class="bg-canvas-card text-zinc-300 px-1.5 py-0.5 rounded-sm font-mono text-[14px]"
           >502 Bad Gateway</code
-        >, or database transactions block each other in production.
+        >, or two transactions lock each other in production.
       </p>
       <p>
-        I focus on building resilient, accessible, and fast systems. I operate
-        comfortably in ambiguous environments, taking responsibility from
-        initial prototypes to hosting configurations.
+        So I stay with things past the merge: through the deploy, the first real
+        users, and the first thing that breaks.
       </p>
     </div>
   </div>

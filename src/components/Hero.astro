@@ -1,24 +1,38 @@
+---
+import { stats } from '../data';
+---
+
 <section class="w-full bg-transparent text-ink pt-32 md:pt-32 pb-20 md:pb-28 px-4 md:px-8 select-none flex flex-col items-center border-b border-hairline/30">
   <div class="max-w-[900px] w-full flex flex-col items-start">
-    <span class="caption-mono text-body-mid mb-6" data-gsap-hero>ARYAN SAHU</span>
+    <span class="caption-mono text-body-mid mb-6" data-gsap-hero>ARYAN SAHU · FOUNDING ENGINEER @ SEVN · PUNE</span>
     <h1 class="display-xl text-ink mb-8 max-w-[860px]" data-gsap-hero>
       I build systems<br class="hidden sm:inline" />
       <span class="text-white/60 mx-3 sm:mx-0">that ship, scale,</span><br class="hidden sm:inline" />
       and stay online.
     </h1>
     <p class="body-lg text-body max-w-[640px] mb-10" data-gsap-hero>
-      Full-stack developer with production experience deploying Next.js, Node.js,
-      and Python applications with PM2, Nginx, and Cloudflare Workers. Co-founded
-      a startup. Built enterprise data pipelines. I take ownership from schema
-      design to deployment.
+      Most teams hire one person to build the product and another to run the servers
+      under it. I do both: Next.js and Node on top, PM2, Nginx and Cloudflare underneath.
+      Right now I'm the founding engineer at SEVN, and on the side I'm building the operations
+      system for my family's 28-year-old business. Before that I co-founded a job platform and
+      shipped features into banking systems moving 10M+ transactions a day.
     </p>
     <div class="flex flex-wrap gap-6" data-gsap-hero>
-      <a href="#experience" data-magnet class="inline-flex items-center justify-center bg-white text-black text-sm font-normal rounded-pill px-6 py-2.5 transition-all duration-150 active:scale-95 hover:bg-white/90">
-        View Experience
+      <a href="#lore" data-magnet class="inline-flex items-center justify-center bg-white text-black text-sm font-normal rounded-pill px-6 py-2.5 transition-all duration-150 active:scale-95 hover:bg-white/90">
+        Read the dev lore
       </a>
-      <a href="#logs" data-magnet class="inline-flex items-center justify-center text-sm font-normal rounded-pill px-6 py-2.5 transition-all duration-150 border border-white/20 text-white hover:bg-white hover:text-black active:scale-95">
-        Inspect Server Logs
+      <a href="#experience" data-magnet class="inline-flex items-center justify-center text-sm font-normal rounded-pill px-6 py-2.5 transition-all duration-150 border border-white/20 text-white hover:bg-white hover:text-black active:scale-95">
+        See the work
       </a>
     </div>
+
+    <dl class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 w-full border-t border-hairline mt-16 pt-8" data-gsap-hero>
+      {stats.map((s, i) => (
+        <div class:list={['flex flex-col-reverse', i === stats.length - 1 && 'col-span-2 sm:col-span-1']}>
+          <dt class="caption-mono-sm text-body-mid mt-1">{s.label}</dt>
+          <dd class="display-xs text-ink">{s.value}</dd>
+        </div>
+      ))}
+    </dl>
   </div>
 </section>
